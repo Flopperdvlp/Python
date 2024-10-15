@@ -1,0 +1,2 @@
+Створити БД для онлайн ігри
+Запросы SELECT, INSERT, UPDATE, DELETE.
