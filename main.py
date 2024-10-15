@@ -1,11 +1,13 @@
 import sqlite3
-
+#! SELECT, INSERT, UPDATE, DELETE.
 def main():
     connection_string = "Game.db"
     try:
         with sqlite3.connect(connection_string) as connection:
             create_tables(connection)
             insert_data(connection)
+            update_data(connection)
+            delete_data(connection)
             print("База даних для онлайн ігор успішно створена і заповнена.")
     except sqlite3.Error as e:
         print(f"Помилка бази даних: {e}")
@@ -16,7 +18,7 @@ def create_tables(connection):
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL,
             password TEXT NOT NULL,
-            email TEXT NOT UNIQUE,
+            email TEXT NOT NULL,
             register_date TEXT NOT NULL
         );
     """
@@ -79,5 +81,20 @@ def insert_data(connection):
         connection.execute(insert_game_progress)
     
     print("Дані успішно додані.")
+def update_data(connection):
+    update_query = """
+        UPDATE USERS
+        SET password = 'new_password' WHERE username = 'player1';
+    """
+    with connection:
+        connection.execute(update_query)
+    print("Дані успішно оновлено.")
+def delete_data(connection):
+    delete_query = """
+        DELETE FROM USERS WHERE username = 'player3';
+    """
+    with connection:
+        connection.execute(delete_query)
+    print("Дані успішно видалено.")
 if __name__ == "__main__":
     main()
