@@ -6,7 +6,6 @@ def main():
         with sqlite3.connect(connection_string) as connection:
             create_tables(connection)
             insert_data(connection)
-            #add_book(connection)
     except sqlite3.Error as e:
         print(f"Помилка бази даних: {e}")
 
@@ -65,12 +64,6 @@ def insert_data(connection):
     with connection:
         connection.execute(insert_books)
         connection.execute(insert_readers)
-
-def add_book(connection, title, author, genre, year_published):
-    query = "INSERT INTO Books (Title, Author, Genre, YearPublished) VALUES (?, ?, ?, ?)"
-    with connection:
-        connection.execute(query, (title, author, genre, year_published))
-    print(f"Книга '{title}' успішно додана.")
 
 if __name__ == "__main__":
     main()
